@@ -1,6 +1,6 @@
 import { ArrayNotEmpty, IsString } from "class-validator"
 import { Request, Response } from "express"
-import { EntityManager } from "typeorm";
+import { EntityManager } from "typeorm"
 
 import ProductCollectionService from "../../../../services/product-collection"
 
@@ -25,6 +25,21 @@ import ProductCollectionService from "../../../../services/product-collection"
  *             items:
  *               description: "The ID of a Product to add to the Product Collection."
  *               type: string
+ * x-codeSamples:
+ *   - lang: Shell
+ *     label: cURL
+ *     source: |
+ *       curl --location --request POST 'https://medusa-url.com/admin/collections/{id}/products/batch' \
+ *       --header 'Authorization: Bearer {api_token}' \
+ *       --header 'Content-Type: application/json' \
+ *       --data-raw '{
+ *           "product_ids": [
+ *               "prod_01G1G5V2MBA328390B5AXJ610F"
+ *           ]
+ *       }'
+ * security:
+ *   - api_token: []
+ *   - cookie_auth: []
  * tags:
  *   - Collection
  * responses:
@@ -36,10 +51,24 @@ import ProductCollectionService from "../../../../services/product-collection"
  *          properties:
  *            collection:
  *              $ref: "#/components/schemas/product_collection"
+ *  "400":
+ *    $ref: "#/components/responses/400_error"
+ *  "401":
+ *    $ref: "#/components/responses/unauthorized"
+ *  "404":
+ *    $ref: "#/components/responses/not_found_error"
+ *  "409":
+ *    $ref: "#/components/responses/invalid_state_error"
+ *  "422":
+ *    $ref: "#/components/responses/invalid_request_error"
+ *  "500":
+ *    $ref: "#/components/responses/500_error"
  */
 export default async (req: Request, res: Response) => {
   const { id } = req.params
-  const { validatedBody } = req as { validatedBody: AdminPostProductsToCollectionReq }
+  const { validatedBody } = req as {
+    validatedBody: AdminPostProductsToCollectionReq
+  }
 
   const productCollectionService: ProductCollectionService = req.scope.resolve(
     "productCollectionService"
@@ -47,10 +76,9 @@ export default async (req: Request, res: Response) => {
 
   const manager: EntityManager = req.scope.resolve("manager")
   const collection = await manager.transaction(async (transactionManager) => {
-    return await productCollectionService.withTransaction(transactionManager).addProducts(
-      id,
-      validatedBody.product_ids
-    )
+    return await productCollectionService
+      .withTransaction(transactionManager)
+      .addProducts(id, validatedBody.product_ids)
   })
 
   res.status(200).json({ collection })

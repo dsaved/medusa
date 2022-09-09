@@ -12,6 +12,7 @@ const {
   MoneyAmount,
 } = require("@medusajs/medusa")
 const priceListSeeder = require("../../helpers/price-list-seeder")
+const { simpleProductFactory } = require("../../factories")
 
 jest.setTimeout(50000)
 
@@ -160,16 +161,19 @@ describe("/admin/products", () => {
         })
 
       expect(response.status).toEqual(200)
-      expect(response.data.products).toEqual([
-        expect.objectContaining({
-          id: "test-product_filtering_1",
-          status: "proposed",
-        }),
-        expect.objectContaining({
-          id: "test-product_filtering_2",
-          status: "published",
-        }),
-      ])
+      expect(response.data.products).toHaveLength(2)
+      expect(response.data.products).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: "test-product_filtering_1",
+            status: "proposed",
+          }),
+          expect.objectContaining({
+            id: "test-product_filtering_2",
+            status: "published",
+          }),
+        ])
+      )
 
       for (const notExpect of notExpected) {
         expect(response.data.products).toEqual(
@@ -199,16 +203,19 @@ describe("/admin/products", () => {
         })
 
       expect(response.status).toEqual(200)
-      expect(response.data.products).toEqual([
-        expect.objectContaining({
-          id: "test-product_filtering_1",
-          status: "proposed",
-        }),
-        expect.objectContaining({
-          id: "test-product_filtering_2",
-          status: "published",
-        }),
-      ])
+      expect(response.data.products).toHaveLength(2)
+      expect(response.data.products).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: "test-product_filtering_1",
+            status: "proposed",
+          }),
+          expect.objectContaining({
+            id: "test-product_filtering_2",
+            status: "published",
+          }),
+        ])
+      )
 
       for (const notExpect of notExpected) {
         expect(response.data.products).toEqual(
@@ -232,11 +239,14 @@ describe("/admin/products", () => {
 
       expect(response.status).toEqual(200)
       expect(response.data.count).toEqual(1)
-      expect(response.data.products).toEqual([
-        expect.objectContaining({
-          id: "test-product_filtering_4",
-        }),
-      ])
+      expect(response.data.products).toHaveLength(1)
+      expect(response.data.products).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: "test-product_filtering_4",
+          }),
+        ])
+      )
     })
 
     it("returns a list of products with free text query and limit", async () => {
@@ -317,11 +327,14 @@ describe("/admin/products", () => {
         })
 
       expect(response.status).toEqual(200)
-      expect(response.data.products).toEqual([
-        expect.objectContaining({
-          id: "test-product_filtering_4",
-        }),
-      ])
+      expect(response.data.products).toHaveLength(1)
+      expect(response.data.products).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: "test-product_filtering_4",
+          }),
+        ])
+      )
     })
 
     it("returns a list of products in collection", async () => {
@@ -343,16 +356,19 @@ describe("/admin/products", () => {
         })
 
       expect(response.status).toEqual(200)
-      expect(response.data.products).toEqual([
-        expect.objectContaining({
-          id: "test-product_filtering_1",
-          collection_id: "test-collection1",
-        }),
-        expect.objectContaining({
-          id: "test-product_filtering_3",
-          collection_id: "test-collection1",
-        }),
-      ])
+      expect(response.data.products).toHaveLength(2)
+      expect(response.data.products).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: "test-product_filtering_1",
+            collection_id: "test-collection1",
+          }),
+          expect.objectContaining({
+            id: "test-product_filtering_3",
+            collection_id: "test-collection1",
+          }),
+        ])
+      )
 
       for (const notExpect of notExpected) {
         expect(response.data.products).toEqual(
@@ -426,13 +442,16 @@ describe("/admin/products", () => {
         })
 
       expect(response.status).toEqual(200)
-      expect(response.data.products).toEqual([
-        expect.objectContaining({
-          id: "test-product_filtering_3",
-          collection_id: "test-collection1",
-          tags: [expect.objectContaining({ id: "tag4" })],
-        }),
-      ])
+      expect(response.data.products).toHaveLength(1)
+      expect(response.data.products).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: "test-product_filtering_3",
+            collection_id: "test-collection1",
+            tags: [expect.objectContaining({ id: "tag4" })],
+          }),
+        ])
+      )
 
       for (const notExpect of notExpectedCollections) {
         expect(response.data.products).toEqual(
@@ -1415,6 +1434,58 @@ describe("/admin/products", () => {
     })
   })
 
+  describe("DELETE /admin/products/:id/options/:option_id", () => {
+    beforeEach(async () => {
+      try {
+        await simpleProductFactory(dbConnection, {
+          id: "test-product-without-variants",
+          variants: [],
+          options: [
+            {
+              id: "test-product-option",
+              title: "Test option",
+            },
+          ],
+        })
+        await adminSeeder(dbConnection)
+      } catch (err) {
+        console.log(err)
+        throw err
+      }
+    })
+
+    afterEach(async () => {
+      const db = useDb()
+      await db.teardown()
+    })
+
+    it("deletes a product option", async () => {
+      const api = useApi()
+
+      const response = await api
+        .delete(
+          "/admin/products/test-product-without-variants/options/test-product-option",
+          {
+            headers: {
+              Authorization: "Bearer test_token",
+            },
+          }
+        )
+        .catch((err) => {
+          console.log(err)
+        })
+
+      expect(response.status).toEqual(200)
+      expect(response.data.product).toEqual(
+        expect.objectContaining({
+          options: [],
+          id: "test-product-without-variants",
+          variants: [],
+        })
+      )
+    })
+  })
+
   describe("GET /admin/products/:id/variants", () => {
     beforeEach(async () => {
       await productSeeder(dbConnection)
@@ -1732,6 +1803,80 @@ describe("/admin/products", () => {
           }),
         ])
       )
+    })
+  })
+
+  describe("variant creation", () => {
+    beforeEach(async () => {
+      try {
+        await productSeeder(dbConnection)
+        await adminSeeder(dbConnection)
+      } catch (err) {
+        console.log(err)
+        throw err
+      }
+    })
+
+    afterEach(async () => {
+      const db = useDb()
+      await db.teardown()
+    })
+
+    it("create a product variant with prices (regional and currency)", async () => {
+      const api = useApi()
+
+      const payload = {
+        title: "New variant",
+        sku: "new-sku",
+        ean: "new-ean",
+        upc: "new-upc",
+        barcode: "new-barcode",
+        prices: [
+          {
+            currency_code: "usd",
+            amount: 100,
+          },
+          {
+            region_id: "test-region",
+            amount: 200,
+          },
+        ],
+        options: [{ option_id: "test-option", value: "inserted value" }],
+      }
+
+      const res = await api
+        .post("/admin/products/test-product/variants", payload, {
+          headers: {
+            Authorization: "Bearer test_token",
+          },
+        })
+        .catch((err) => console.log(err))
+
+      const insertedVariant = res.data.product.variants.find(
+        (v) => v.sku === "new-sku"
+      )
+
+      expect(res.status).toEqual(200)
+
+      expect(insertedVariant.prices).toEqual([
+        expect.objectContaining({
+          currency_code: "usd",
+          amount: 100,
+          min_quantity: null,
+          max_quantity: null,
+          variant_id: insertedVariant.id,
+          region_id: null,
+        }),
+        expect.objectContaining({
+          currency_code: "usd",
+          amount: 200,
+          min_quantity: null,
+          max_quantity: null,
+          price_list_id: null,
+          variant_id: insertedVariant.id,
+          region_id: "test-region",
+        }),
+      ])
     })
   })
 

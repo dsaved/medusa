@@ -26,7 +26,7 @@ BaseService.constructor
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:44](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L44)
+[packages/medusa/src/services/line-item.ts:47](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L47)
 
 ## Properties
 
@@ -36,7 +36,7 @@ BaseService.constructor
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:38](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L38)
+[packages/medusa/src/services/line-item.ts:41](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L41)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:37](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L37)
+[packages/medusa/src/services/line-item.ts:40](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L40)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:42](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L42)
+[packages/medusa/src/services/line-item.ts:45](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L45)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:36](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L36)
+[packages/medusa/src/services/line-item.ts:39](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L39)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:35](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L35)
+[packages/medusa/src/services/line-item.ts:38](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L38)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:40](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L40)
+[packages/medusa/src/services/line-item.ts:43](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L43)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:39](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L39)
+[packages/medusa/src/services/line-item.ts:42](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L42)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:41](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L41)
+[packages/medusa/src/services/line-item.ts:44](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L44)
 
 ## Methods
 
@@ -130,7 +130,7 @@ the created line item
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:262](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L262)
+[packages/medusa/src/services/line-item.ts:269](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L269)
 
 ___
 
@@ -156,7 +156,40 @@ the created line items
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:134](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L134)
+[packages/medusa/src/services/line-item.ts:141](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L141)
+
+___
+
+### createTaxLine
+
+▸ **createTaxLine**(`args`): `LineItemTaxLine`
+
+Create a line item tax line.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | `Object` | tax line partial passed to the repo create method |
+| `args.code?` | ``null`` \| `string` | - |
+| `args.created_at?` | { toString?: {} \| undefined; toDateString?: {} \| undefined; toTimeString?: {} \| undefined; toLocaleString?: {} \| undefined; toLocaleDateString?: {} \| undefined; toLocaleTimeString?: {} \| undefined; ... 37 more ...; [Symbol.toPrimitive]?: {} \| undefined; } | - |
+| `args.id?` | `string` | - |
+| `args.item?` | { cart\_id?: string \| undefined; cart?: { readonly object?: "cart" \| undefined; email?: string \| undefined; billing\_address\_id?: string \| undefined; billing\_address?: { customer\_id?: string \| ... 1 more ... \| undefined; ... 16 more ...; updated\_at?: { ...; } \| undefined; } \| undefined; ... 34 more ...; updated\_at?: {... | - |
+| `args.item_id?` | `string` | - |
+| `args.metadata?` | { [x: string]: unknown; } | - |
+| `args.name?` | `string` | - |
+| `args.rate?` | `number` | - |
+| `args.updated_at?` | { toString?: {} \| undefined; toDateString?: {} \| undefined; toTimeString?: {} \| undefined; toLocaleString?: {} \| undefined; toLocaleDateString?: {} \| undefined; toLocaleTimeString?: {} \| undefined; ... 37 more ...; [Symbol.toPrimitive]?: {} \| undefined; } | - |
+
+#### Returns
+
+`LineItemTaxLine`
+
+a new line item tax line
+
+#### Defined in
+
+[packages/medusa/src/services/line-item.ts:336](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L336)
 
 ___
 
@@ -180,7 +213,7 @@ the result of the delete operation
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:310](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L310)
+[packages/medusa/src/services/line-item.ts:317](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L317)
 
 ___
 
@@ -207,7 +240,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:187](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L187)
+[packages/medusa/src/services/line-item.ts:194](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L194)
 
 ___
 
@@ -217,14 +250,10 @@ ___
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `selector` | `any` | `undefined` |
-| `config` | `Object` | `undefined` |
-| `config.order` | `Object` | `undefined` |
-| `config.order.created_at` | `string` | `"DESC"` |
-| `config.skip` | `number` | `0` |
-| `config.take` | `number` | `50` |
+| Name | Type |
+| :------ | :------ |
+| `selector` | `any` |
+| `config` | `FindConfig`<`LineItem`\> |
 
 #### Returns
 
@@ -232,7 +261,7 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:90](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L90)
+[packages/medusa/src/services/line-item.ts:93](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L93)
 
 ___
 
@@ -257,7 +286,7 @@ the line item
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:106](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L106)
+[packages/medusa/src/services/line-item.ts:113](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L113)
 
 ___
 
@@ -282,7 +311,7 @@ the update line item
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:281](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L281)
+[packages/medusa/src/services/line-item.ts:288](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L288)
 
 ___
 
@@ -302,4 +331,4 @@ ___
 
 #### Defined in
 
-[packages/medusa/src/services/line-item.ts:68](https://github.com/medusajs/medusa/blob/f406c8d4/packages/medusa/src/services/line-item.ts#L68)
+[packages/medusa/src/services/line-item.ts:71](https://github.com/medusajs/medusa/blob/70139d0bb/packages/medusa/src/services/line-item.ts#L71)
